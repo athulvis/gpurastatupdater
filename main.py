@@ -24,13 +24,21 @@ def main():
     data_dict["authors"] = num_elements[3].get_text()
     data_dict["pages"] = num_elements[4].get_text()
 
-    with open(csv_file, mode='a', newline='') as file:
-        writer = csv.DictWriter(file, list(data_dict.keys()))
-        
-        if file.tell() == 0:
-            writer.writeheader()
-        
-        writer.writerow(data_dict)
+    existing_data = []
+    try:
+        with open(csv_file, mode='r', newline='') as file:
+            reader = csv.DictReader(file)
+            existing_data = list(reader)
+    except FileNotFoundError:
+        pass
+
+    existing_data.insert(0, data_dict)
+
+    with open(csv_file, mode='w', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=list(data_dict.keys()))
+        writer.writeheader()
+        writer.writerows(existing_data)
+
 
 if __name__ == "__main__":
     main()
