@@ -6,10 +6,10 @@ name: Python application
 on:
   schedule:
     - cron: "30 17 * * *"         # Every day at 3 AM UTC
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # push:
+    # branches: [ "main" ]
+  # pull_request:
+    # branches: [ "main" ]
 
 permissions:
   contents: write
